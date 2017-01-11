@@ -28,8 +28,6 @@ configurations {
     compile.exclude module: 'slf4j-log4j12'
 }
 
-sourceSets.main.resources.includes=['src/main/resources'];
-
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web:1.4.3.RELEASE")
     //injection
