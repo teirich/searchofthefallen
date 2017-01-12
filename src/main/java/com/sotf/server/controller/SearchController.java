@@ -7,10 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -37,7 +34,7 @@ public class SearchController {
                            @QueryParam("rows") Integer rows, @QueryParam("start") Integer start) {
         LOG.info("In SearchController.search");
         if(searchText == null || volume == null) {
-            throw new IllegalArgumentException("Missing required parameter");
+            throw new BadRequestException("Missing required parameter");
         }
 
         if(rows == null || rows <= 0 || rows > 100) {
@@ -60,7 +57,7 @@ public class SearchController {
                               @QueryParam("rows") Integer rows, @QueryParam("start") Integer start){
         LOG.info("In SearchController.upTo");
         if(searchText == null || volume == null) {
-            throw new IllegalArgumentException("Missing required parameter");
+            throw new BadRequestException("Missing required parameter");
         }
 
         if(rows == null || rows <= 0 || rows > 100) {

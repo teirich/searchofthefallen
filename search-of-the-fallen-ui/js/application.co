@@ -1,0 +1,17 @@
+/**
+ *  application.js root component of the whole app.
+ *
+ *  @author  thad
+ *  @date    Jan 11, 2017
+ *
+ */
+import './application.css';
+export default {
+    template: `
+    <menu></menu>
+    <div ng-view autoscroll="true"></div>
+    `,
+    controller: class Application {
+        constructor() {}
+    }
+};
