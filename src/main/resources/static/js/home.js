@@ -3,7 +3,14 @@ angular.module('search-of-the-fallen', [])
         $scope.volumes = [
             {abbr: 'GOTM', display: 'Gardens of the Moon'},
             {abbr: 'DG', display: 'Deadhouse Gates'},
-            {abbr: 'MOI', display: 'Memories of Ice'}
+            {abbr: 'MOI', display: 'Memories of Ice'},
+            {abbr: 'HOC', display: 'House of Chains'},
+            {abbr: 'MT', display: 'Midnight Tides'},
+            {abbr: 'BH', display: 'The Bonehunters'},
+            {abbr: 'RG', display: 'Reaper\'s Gale'},
+            {abbr: 'TTH', display: 'Toll the Hounds'},
+            {abbr: 'DOD', display: 'Dust of Dreams'},
+            {abbr: 'TCG', display: 'The Crippled God'}
         ];
 
         $scope.rowOptions = [10, 25, 50, 100];
@@ -18,10 +25,13 @@ angular.module('search-of-the-fallen', [])
 
         $scope.search = function(){
             console.log('in search');
+            console.log($scope.selectedVolume);
+            console.log($scope.selectedVolume.abbr);
+
             $http.get('/api/search', {
                 params: {
                     text: $scope.text,
-                    volume: $scope.selectedVolume,
+                    volume: $scope.selectedVolume.abbr,
                     rows: $scope.rows,
                     start: $scope.start
                 }

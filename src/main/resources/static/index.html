@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>Hello AngularJS</title>
+  <title>SOTF: Malazan</title>
   <link href="css/home.css" rel="stylesheet">
   <style type="text/css">
     [ng\:cloak], [ng-cloak], .ng-cloak {
@@ -11,44 +11,52 @@
 </head>
 
 <body ng-app="search-of-the-fallen">
-<div class="container">
-  <div ng-controller="home" ng-cloak class="ng-cloak">
 
-    <div id="searchContainer">
-      <h1>Search of the Fallen</h1>
-      <h2>Full text search for Malazan: Book of the Fallen</h2>
-      <form>
-        <label for="searchText">Search:</label><input id="searchText" type="text" ng-model="text"/><br/>
-        <label for="searchVolume">Volume:</label><select id="searchVolume" ng-model="selectedVolume" ng-options="volume as volume.display for volume in volumes track by volume.abbr"></select><br/>
-        <label for="searchUpTo">Previous Content:</label><input id="searchUpTo" type="checkbox" ng-model="upTo"/><br/>
-        <label for="selectRows">Rows:</label>
-        <select id="selectRows" ng-model="rows">
-          <option ng-repeat="count in rowOptions" ng-value="count">{{count}}</option>
-        </select><br/>
-        <button id="go" ng-click="search()" >GO</button><br/>
-      </form>
-    </div>
-
-    <div ng-show="showResults" id="resultContainer">
-      <p>Page {{currentPage}} of {{pages}}</p>
-      <div>
-        <button id="prevPage" ng-show="start > 0" ng-click="prevPage()">Previous Page</button>
-        <button id="nextPage" ng-show="(start + rows) <= numFound" ng-click="nextPage()">Next Page</button>
+  <div ng-controller="home" ng-cloak class="ng-cloak" >
+    <div class="page-container">
+      <div class="search-container">
+        <div class="heading">
+          <h1>Search of the Fallen</h1>
+          <h2>Full text search for 'Malazan: Book of the Fallen'</h2>
+        </div>
+        <form class="search-form-container">
+          <div class="search-bar-container">
+            <input id="searchText" class="search-bar" type="text" ng-model="text" placeholder="Search"/>
+            <select id="searchVolume" class="volume-select" ng-model="selectedVolume" ng-options="volume as volume.display for volume in volumes track by volume.abbr">
+              <option value="" disabled selected>Select a Novel</option>
+            </select>
+            <button id="go" class="search-button" ng-click="search()">GO</button>
+          </div>
+          <div class="search-controls">
+            <label for="searchUpTo">Previous Novels:</label><input id="searchUpTo" class="checkbox search-control" type="checkbox" ng-model="upTo"/><br/>
+            <label for="selectRows">Rows:</label>
+            <select id="selectRows" ng-model="rows" class="search-control">
+              <option ng-repeat="count in rowOptions" ng-value="count">{{count}}</option>
+            </select>
+          </div>
+        </form>
       </div>
-      <hr/>
-      <div id="result" ng-repeat="result in results">
-        <p>{{result.prevText}}</p>
-        <p>{{result.text}}</p>
-        <p>{{result.nextText}}</p>
-        <p>Chapter {{result.chapter}}</p>
-        <p>Volume {{result.volume}}</p>
+      <div ng-show="showResults" class="result-container">
+        <div class="pagination-container">
+          <p>Page {{currentPage}} of {{pages}}</p>
+          <div>
+            <button id="prevPage" ng-show="start > 0" ng-click="prevPage()">Previous Page</button>
+            <button id="nextPage" ng-show="(start + rows) <= numFound" ng-click="nextPage()">Next Page</button>
+          </div>
+        </div>
         <hr/>
+        <div id="result" ng-repeat="result in results">
+          <p>{{result.prevText}}</p>
+          <p>{{result.text}}</p>
+          <p>{{result.nextText}}</p>
+          <p>Chapter {{result.chapter}}</p>
+          <p>Volume {{result.volume}}</p>
+          <hr/>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js" type="text/javascript"></script>
-<script src="js/home.js"></script>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js" type="text/javascript"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>
