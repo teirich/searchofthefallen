@@ -36,7 +36,7 @@
           </div>
         </form>
       </div>
-      <div ng-show="showResults" class="result-container">
+      <div ng-show="showResults" class="results-container">
         <div class="pagination-container">
           <p>Page {{currentPage}} of {{pages}}</p>
           <div>
@@ -45,13 +45,12 @@
           </div>
         </div>
         <hr/>
-        <div id="result" ng-repeat="result in results">
+        <div id="result" class="result" ng-repeat="result in results">
           <p>{{result.prevText}}</p>
           <p>{{result.text}}</p>
           <p>{{result.nextText}}</p>
           <p>Chapter {{result.chapter}}</p>
           <p>Volume {{result.volume}}</p>
-          <hr/>
         </div>
       </div>
     </div>
