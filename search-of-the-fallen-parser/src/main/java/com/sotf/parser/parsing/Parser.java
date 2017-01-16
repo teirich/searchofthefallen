@@ -3,7 +3,7 @@ package com.sotf.parser.parsing;
 import com.sotf.parser.language.Book;
 import com.sotf.parser.language.Chapter;
 import com.sotf.parser.language.Paragraph;
-import com.sotf.parser.language.Volume;
+import com.sotf.parser.language.Novel;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,23 +22,23 @@ public class Parser {
 
     private String currentLine;
     private Paragraph lastParagraph;
-    private Volume volume;
+    private Novel novel;
     private Book currentBook;
     private Chapter currentChapter;
     private int sequence;
 
-    public Volume parseVolume(String name, BufferedReader reader) {
+    public Novel parseNovel(String name, BufferedReader reader) {
         //initialize
         lastParagraph = null;
         currentLine = null;
         sequence = 0;
 
-        volume = new Volume(name);
+        novel = new Novel(name);
         currentBook = new Book(-1);
         currentChapter = new Chapter(-1);
 
         currentBook.addChapter(currentChapter);
-        volume.addBook(currentBook);
+        novel.addBook(currentBook);
 
         try {
             while ((currentLine = reader.readLine()) != null){
@@ -67,7 +67,7 @@ public class Parser {
         } catch (IOException e) {
             throw new RuntimeException("Error reading file");
         }
-        return volume;
+        return novel;
     }
 
     private void newChapter(int number) {
@@ -78,7 +78,7 @@ public class Parser {
 
     private void newBook(int number) {
         currentBook = new Book(number);
-        volume.addBook(currentBook);
+        novel.addBook(currentBook);
     }
 
     //look at this shit
@@ -143,7 +143,7 @@ public class Parser {
     }
 
     private void newParagraph(String text) {
-        Paragraph paragraph = new Paragraph(lastParagraph, text, null, currentChapter, currentBook, volume, sequence++);
+        Paragraph paragraph = new Paragraph(lastParagraph, text, null, currentChapter, currentBook, novel, sequence++);
         if(lastParagraph != null) lastParagraph.setNext(paragraph);
         currentChapter.addParagraph(paragraph);
         lastParagraph = paragraph;

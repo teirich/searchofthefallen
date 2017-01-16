@@ -1,6 +1,6 @@
 angular.module('search-of-the-fallen', [])
-    .controller('home', function($scope, $http) {
-        $scope.volumes = [
+    .controller('home', function($scope, $http, $sce) {
+        $scope.novels = [
             {abbr: 'GOTM', display: 'Gardens of the Moon'},
             {abbr: 'DG', display: 'Deadhouse Gates'},
             {abbr: 'MOI', display: 'Memories of Ice'},
@@ -23,27 +23,30 @@ angular.module('search-of-the-fallen', [])
         $scope.pages = 0;
         $scope.currentPage = 1;
 
-        $scope.search = function(){
-            console.log('in search');
-            console.log($scope.selectedVolume);
-            console.log($scope.selectedVolume.abbr);
+        $scope.highlight = function (text) {
+            //should really sanitize $scope.text first
+            return $sce.trustAsHtml('<p>' + text.replace(new RegExp($scope.text, 'gi'), function(match) {
+                return '<mark>' + match + '</mark>';
+            }) + '</p>');
+        };
 
-            $http.get('/api/search', {
+        $scope.search = function () {
+            console.log('in search: ' + $scope.text);
+            var path = $scope.upTo ? '/api/search/upTo' : '/api/search';
+            $http.get(path, {
                 params: {
                     text: $scope.text,
-                    volume: $scope.selectedVolume.abbr,
+                    novel: $scope.selectedNovel.abbr,
                     rows: $scope.rows,
                     start: $scope.start
                 }
-            }).success(function(data) {
+            }).success(function (data) {
                 console.log('in success');
                 $scope.numFound = data.numFound;
                 $scope.rows = data.rows;
                 $scope.start = data.start;
                 $scope.results = data.searchResults;
-
                 $scope.pages = Math.ceil($scope.numFound / $scope.rows);
-
                 $scope.showResults = true;
             });
         };

@@ -1,8 +1,8 @@
 package com.sotf.server.service;
 
-import com.sotf.server.constants.Volumes;
+import com.sotf.server.constants.Novels;
 import com.sotf.server.model.SearchResult;
-import com.sotf.server.model.Volume;
+import com.sotf.server.model.Novel;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -31,10 +31,10 @@ public class SolrService {
         return "works";
     }
 
-    private static SolrQuery singleVolumeQuery(@NotNull String searchText, @NotNull String volume, Integer book, Integer chapter, @NotNull Integer rows, @NotNull Integer start) {
+    private static SolrQuery singleNovelQuery(@NotNull String searchText, @NotNull String novel, Integer book, Integer chapter, @NotNull Integer rows, @NotNull Integer start) {
         SolrQuery query = commonQuery(searchText, rows, start);
 
-        query.set("fq", "volume:" + volume + " ");
+        query.set("fq", "novel:" + novel + " ");
 
         if(book != null) {
             query.set("fq", "book:" + book);
@@ -43,7 +43,7 @@ public class SolrService {
         if(chapter != null) {
             query.set("chapter", "chapter:" + chapter);
         }
-        LOG.info("singleVolumeQuery: " + query.toString());
+        LOG.info("singleNovelQuery: " + query.toString());
         return query;
     }
 
@@ -52,7 +52,7 @@ public class SolrService {
 
         query.set("q", "text:" + searchText);
         query.set("sort", "sequence asc");
-        query.set("fl", "text,chapter,book,volume,sequence,nextText,prevText");
+        query.set("fl", "text,chapter,book,novel,sequence,nextText,prevText");
         query.setRows(rows);
         query.setStart(start);
 
@@ -63,25 +63,25 @@ public class SolrService {
         return "[0 TO " + count + "]";
     }
 
-    private static String volumesBeforeString (String volume) {
-        List<Volumes> before = Volumes.before(volume);
+    private static String novelsBeforeString (String novel) {
+        List<Novels> before = Novels.before(novel);
         return before.stream()
-                .map(Volumes::volume)
-                .map(Volume::getAbbreviation)
+                .map(Novels::novel)
+                .map(Novel::getAbbreviation)
                 .map(String::toUpperCase)
                 .collect(Collectors.joining(" , "));
     }
 
-    private static SolrQuery upToQuery(@NotNull String searchText, @NotNull String volume, Integer book, Integer chapter, @NotNull Integer rows, @NotNull Integer start) {
+    private static SolrQuery upToQuery(@NotNull String searchText, @NotNull String novel, Integer book, Integer chapter, @NotNull Integer rows, @NotNull Integer start) {
         SolrQuery query = commonQuery(searchText, rows, start);
-        String beforeString = volumesBeforeString(volume);
+        String beforeString = novelsBeforeString(novel);
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("volume:(");
+        sb.append("novel:(");
         sb.append(beforeString);
-        sb.append(") OR (volume:");
-        sb.append(volume);
+        sb.append(") OR (novel:");
+        sb.append(novel);
 
         if(book != null) {
             sb.append(" AND book:");
@@ -115,13 +115,13 @@ public class SolrService {
         }
     }
 
-    public SolrServiceResponse upToSearch(String searchText, String volume, Integer book, Integer chapter, Integer rows, Integer start){
-        SolrQuery query = upToQuery(searchText, volume, book, chapter, rows, start);
+    public SolrServiceResponse upToSearch(String searchText, String novel, Integer book, Integer chapter, Integer rows, Integer start){
+        SolrQuery query = upToQuery(searchText, novel, book, chapter, rows, start);
         return doQuery(query);
     }
 
-    public SolrServiceResponse search(String searchText, String volume, Integer book, Integer chapter, Integer rows, Integer start) {
-        SolrQuery query = singleVolumeQuery(searchText, volume, book, chapter, rows, start);
+    public SolrServiceResponse search(String searchText, String novel, Integer book, Integer chapter, Integer rows, Integer start) {
+        SolrQuery query = singleNovelQuery(searchText, novel, book, chapter, rows, start);
         return doQuery(query);
     }
 

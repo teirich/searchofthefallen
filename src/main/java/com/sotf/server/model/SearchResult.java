@@ -13,19 +13,19 @@ public class SearchResult {
     @Field String nextText;
     @Field int chapter;
     @Field int book;
-    @Field String volume;
+    @Field String novel;
     @Field int sequence;
 
     public SearchResult() {
     }
 
-    public SearchResult(String prevText, String text, String nextText, int chapter, int book, String volume, int sequence) {
+    public SearchResult(String prevText, String text, String nextText, int chapter, int book, String novel, int sequence) {
         this.prevText = prevText;
         this.text = text;
         this.nextText = nextText;
         this.chapter = chapter;
         this.book = book;
-        this.volume = volume;
+        this.novel = novel;
         this.sequence = sequence;
     }
 
@@ -69,12 +69,12 @@ public class SearchResult {
         this.book = book;
     }
 
-    public String getVolume() {
-        return volume;
+    public String getNovel() {
+        return novel;
     }
 
-    public void setVolume(String volume) {
-        this.volume = volume;
+    public void setNovel(String novel) {
+        this.novel = novel;
     }
 
     public int getSequence() {

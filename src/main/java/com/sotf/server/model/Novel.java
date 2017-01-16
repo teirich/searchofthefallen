@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by thad on 12/10/16.
  */
-public class Volume {
+public class Novel {
     public String getTitle() {
         return title;
     }
@@ -28,7 +28,7 @@ public class Volume {
     private final int readingOrder;
     private final List<Book> contents;
 
-    public Volume(String abbreviation, String title, int readingOrder, Book... contents) {
+    public Novel(String abbreviation, String title, int readingOrder, Book... contents) {
         this.title = title;
         this.abbreviation = abbreviation;
         this.readingOrder = readingOrder;

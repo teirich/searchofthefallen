@@ -1,7 +1,7 @@
 package com.sotf.server.constants;
 
 import com.sotf.server.model.Book;
-import com.sotf.server.model.Volume;
+import com.sotf.server.model.Novel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,8 @@ import java.util.List;
  * Created by thad on 12/10/16.
  */
 
-public enum Volumes {
-    GOTM(new Volume("GotM", "Gardens of the Moon", 1,
+public enum Novels {
+    GOTM(new Novel("GotM", "Gardens of the Moon", 1,
             Book.PROLOGUE,
             new Book(1, "Pale", 1,4),
             new Book(2, "Darujhistan", 5, 7),
@@ -22,7 +22,7 @@ public enum Volumes {
             new Book(7, "The Fete", 20, 24),
             Book.EPILOGUE
     )),
-    DG(new Volume("DG", "Deadhouse Gates", 2,
+    DG(new Novel("DG", "Deadhouse Gates", 2,
             Book.PROLOGUE,
             new Book(1, "Raraku", 1, 5),
             new Book(2, "Whirlwind", 6, 10),
@@ -30,7 +30,7 @@ public enum Volumes {
             new Book(4, "Deadhouse Gates", 16, 24),
             Book.EPILOGUE
     )),
-    MOI(new Volume("MoI", "Memories of Ice", 3,
+    MOI(new Novel("MoI", "Memories of Ice", 3,
             Book.PROLOGUE,
             new Book(1, "The Spark And The Ashes", 1, 6),
             new Book(2, "Hearthstone", 7, 13),
@@ -38,7 +38,7 @@ public enum Volumes {
             new Book(4, "Memories of Ice", 21, 25),
             Book.EPILOGUE
     )),
-    HOC(new Volume("HoC", "House of Chains", 4,
+    HOC(new Novel("HoC", "House of Chains", 4,
             Book.PROLOGUE,
             new Book(1, "Faces in the Rock", 1, 4),
             new Book(2, "Cold Iron", 5, 12),
@@ -46,7 +46,7 @@ public enum Volumes {
             new Book(4, "House of Chains", 19, 26),
             Book.EPILOGUE
     )),
-    MT(new Volume("MT", "Midnight Tides", 5,
+    MT(new Novel("MT", "Midnight Tides", 5,
             Book.PROLOGUE,
             new Book(1, "Frozen Blood", 1, 5),
             new Book(2, "Prows of the Day", 6, 11),
@@ -54,7 +54,7 @@ public enum Volumes {
             new Book(4, "Midnight Tides", 21, 25),
             Book.EPILOGUE
     )),
-    BH(new Volume("BH", "The Bonehunters", 6,
+    BH(new Novel("BH", "The Bonehunters", 6,
             Book.PROLOGUE,
             new Book(1, "The Thousand-Fingered God", 1, 6),
             new Book(2, "Beneath This Name", 7, 11),
@@ -62,7 +62,7 @@ public enum Volumes {
             new Book(4, "The Bonehunters", 17, 24),
             Book.EPILOGUE
     )),
-    RG(new Volume("RG", "Reaper's Gale", 7,
+    RG(new Novel("RG", "Reaper's Gale", 7,
             Book.PROLOGUE,
             new Book(1, "The Emperor in Gold", 1, 6),
             new Book(2, "Layers of the Dead", 7, 12),
@@ -70,7 +70,7 @@ public enum Volumes {
             new Book(4, "Reaper's Gale", 19, 24),
             Book.EPILOGUE
     )),
-    TTH(new Volume("TtH", "Toll the Hounds", 8,
+    TTH(new Novel("TtH", "Toll the Hounds", 8,
             Book.PROLOGUE,
             new Book(1, "Vow to the Sun", 1, 6),
             new Book(2, "Cold-Eyed Virtues", 7, 12),
@@ -78,7 +78,7 @@ public enum Volumes {
             new Book(4, "Toll the Hounds", 19, 24),
             Book.EPILOGUE
     )),
-    DOD(new Volume("DoD", "Dust of Dreams", 9,
+    DOD(new Novel("DoD", "Dust of Dreams", 9,
             Book.PROLOGUE,
             new Book(1, "The Sea Does Not Dream of You", 1, 6),
             new Book(2, "Eaters of Diamonds and Gems", 7, 12),
@@ -86,7 +86,7 @@ public enum Volumes {
             new Book(4, "The Path Forever Walked", 19, 24),
             Book.EPILOGUE
     )),
-    TCG(new Volume("tCG", "The Crippled God", 10,
+    TCG(new Novel("tCG", "The Crippled God", 10,
             new Book(1, "He was a soldier", 1, 4),
             new Book(2, "All the takers of my days", 5, 7),
             new Book(3, "To charge the spear", 8, 10),
@@ -99,29 +99,29 @@ public enum Volumes {
     ));
 
     /**
-     * Returns all volumes that came before
-     * @param vol Volume Abbreviation
+     * Returns all Novel that came before
+     * @param vol Novel Abbreviation
      * @return
      */
-    public static List<Volumes> before(String vol){
-        List<Volumes> volumesList = new ArrayList<>();
-        for(Volumes curVol : Volumes.values()){
-            if(curVol.volume().getAbbreviation().equalsIgnoreCase(vol)){
-                return volumesList;
+    public static List<Novels> before(String vol){
+        List<Novels> novelsList = new ArrayList<>();
+        for(Novels curVol : Novels.values()){
+            if(curVol.novel().getAbbreviation().equalsIgnoreCase(vol)){
+                return novelsList;
             }
-            volumesList.add(curVol);
+            novelsList.add(curVol);
         }
-        throw new IllegalArgumentException("unknown volume name");
+        throw new IllegalArgumentException("unknown novel name");
     }
 
-    public Volume volume() {
-        return this.volume;
+    public Novel novel() {
+        return this.novel;
     }
 
-    private Volume volume;
+    private Novel novel;
 
-    Volumes(Volume volume) {
-        this.volume = volume;
+    Novels(Novel novel) {
+        this.novel = novel;
     }
 
 }

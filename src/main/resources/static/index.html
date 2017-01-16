@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>SOTF: Malazan</title>
+  <title>Malazan: Search of the Fallen</title>
   <link href="css/home.css" rel="stylesheet">
   <style type="text/css">
     [ng\:cloak], [ng-cloak], .ng-cloak {
@@ -22,7 +22,7 @@
         <form class="search-form-container">
           <div class="search-bar-container">
             <input id="searchText" class="search-bar" type="text" ng-model="text" placeholder="Search"/>
-            <select id="searchVolume" class="volume-select" ng-model="selectedVolume" ng-options="volume as volume.display for volume in volumes track by volume.abbr">
+            <select id="searchNovel" class="novel-select" ng-model="selectedNovel" ng-options="n as novel.display for novel in novels track by novel.abbr">
               <option value="" disabled selected>Select a Novel</option>
             </select>
             <button id="go" class="search-button" ng-click="search()">GO</button>
@@ -44,13 +44,12 @@
             <button id="nextPage" ng-show="(start + rows) <= numFound" ng-click="nextPage()">Next Page</button>
           </div>
         </div>
-        <hr/>
         <div id="result" class="result" ng-repeat="result in results">
           <p>{{result.prevText}}</p>
-          <p>{{result.text}}</p>
+          <div ng-bind-html="highlight(result.text)"></div>
           <p>{{result.nextText}}</p>
           <p>Chapter {{result.chapter}}</p>
-          <p>Volume {{result.volume}}</p>
+          <p>Novel {{result.novel}}</p>
         </div>
       </div>
     </div>

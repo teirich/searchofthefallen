@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by thad on 1/7/17.
  */
-public class Volume {
+public class Novel {
     String name;
     List<Book> books;
 
@@ -29,10 +29,10 @@ public class Volume {
         this.books = books;
     }
 
-    public Volume(String name) {
+    public Novel(String name) {
         this(name, new ArrayList<>());
     }
-    public Volume(String name, List<Book> books) {
+    public Novel(String name, List<Book> books) {
         this.name = name;
         this.books = books;
     }

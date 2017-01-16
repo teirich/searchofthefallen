@@ -43,12 +43,12 @@ public class Paragraph {
         this.book = book;
     }
 
-    public Volume getVolume() {
-        return volume;
+    public Novel getNovel() {
+        return novel;
     }
 
-    public void setVolume(Volume volume) {
-        this.volume = volume;
+    public void setNovel(Novel novel) {
+        this.novel = novel;
     }
 
     public int getSequence() {
@@ -59,13 +59,13 @@ public class Paragraph {
         this.sequence = sequence;
     }
 
-    public Paragraph(Paragraph previous, String text, Paragraph next, Chapter chapter, Book book, Volume volume, int sequence) {
+    public Paragraph(Paragraph previous, String text, Paragraph next, Chapter chapter, Book book, Novel novel, int sequence) {
         this.previous = previous;
         this.text = text;
         this.next = next;
         this.chapter = chapter;
         this.book = book;
-        this.volume = volume;
+        this.novel = novel;
         this.sequence = sequence;
     }
 
@@ -74,7 +74,7 @@ public class Paragraph {
     Paragraph next;
     Chapter chapter;
     Book book;
-    Volume volume;
+    Novel novel;
     int sequence;
 
 }

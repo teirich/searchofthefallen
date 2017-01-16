@@ -1,6 +1,6 @@
 package com.sotf.parser;
 
-import com.sotf.parser.language.Volume;
+import com.sotf.parser.language.Novel;
 import com.sotf.parser.parsing.Parser;
 import com.sotf.parser.solr.Solr;
 
@@ -29,15 +29,15 @@ public class Main {
         }
 
         String fileName = args[0];
-        String volumeName = args[1];
+        String novelName = args[1];
 
-        String solrAddress = args.length > 2? args[2] : "http://localhost:8983/solr/sotf4";
+        String solrAddress = args.length > 2? args[2] : "http://localhost:8983/solr/sotf3";
 
         BufferedReader reader = getFileReader(fileName);
 
         Parser parser = new Parser();
-        Volume vol = parser.parseVolume(volumeName, reader);
+        Novel novel = parser.parseNovel(novelName, reader);
         Solr solr = new Solr();
-        solr.seed(solrAddress,vol);
+        solr.seed(solrAddress,novel);
     }
 }

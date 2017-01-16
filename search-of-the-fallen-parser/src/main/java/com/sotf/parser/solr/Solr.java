@@ -3,7 +3,7 @@ package com.sotf.parser.solr;
 import com.sotf.parser.language.Book;
 import com.sotf.parser.language.Chapter;
 import com.sotf.parser.language.Paragraph;
-import com.sotf.parser.language.Volume;
+import com.sotf.parser.language.Novel;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
@@ -16,12 +16,12 @@ import java.io.IOException;
  */
 public class Solr {
 
-    public void seed(String url, Volume volume) {
+    public void seed(String url, Novel novel) {
         SolrClient solr = new HttpSolrClient.Builder(url).build();
 
         try {
             ParagraphSolrDocumentBuilder builder = new ParagraphSolrDocumentBuilder();
-            for (Book book : volume.getBooks()) {
+            for (Book book : novel.getBooks()) {
                 for (Chapter chapter : book.getChapters()) {
                     for (Paragraph paragraph : chapter.getParagraphs()) {
                         SolrInputDocument doc = builder.build(paragraph);
