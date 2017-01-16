@@ -29,14 +29,14 @@ public class Main {
         }
 
         String fileName = args[0];
-        String novelName = args[1];
+        Integer novelNumber = Integer.valueOf(args[1]);
 
         String solrAddress = args.length > 2? args[2] : "http://localhost:8983/solr/sotf3";
 
         BufferedReader reader = getFileReader(fileName);
 
         Parser parser = new Parser();
-        Novel novel = parser.parseNovel(novelName, reader);
+        Novel novel = parser.parseNovel(novelNumber, reader);
         Solr solr = new Solr();
         solr.seed(solrAddress,novel);
     }

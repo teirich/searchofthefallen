@@ -7,18 +7,18 @@ import java.util.List;
  * Created by thad on 1/7/17.
  */
 public class Novel {
-    String name;
+    int number;
     List<Book> books;
 
     public void addBook(Book b) {
         this.books.add(b);
     }
-    public String getName() {
-        return name;
+    public int getNumber() {
+        return number;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public List<Book> getBooks() {
@@ -29,11 +29,11 @@ public class Novel {
         this.books = books;
     }
 
-    public Novel(String name) {
-        this(name, new ArrayList<>());
+    public Novel(int number) {
+        this(number, new ArrayList<>());
     }
-    public Novel(String name, List<Book> books) {
-        this.name = name;
+    public Novel(int number, List<Book> books) {
+        this.number = number;
         this.books = books;
     }
 }

@@ -29,7 +29,7 @@ public class SearchController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public SearchResults search(@QueryParam("text") String searchText, @QueryParam("novel") String novel,
+    public SearchResults search(@QueryParam("text") String searchText, @QueryParam("novel") Integer novel,
                            @QueryParam("book") Integer book, @QueryParam("chapter") Integer chapter,
                            @QueryParam("rows") Integer rows, @QueryParam("start") Integer start) {
         LOG.info("In SearchController.search");
@@ -45,14 +45,14 @@ public class SearchController {
             start = 0;
         }
 
-        SolrService.SolrServiceResponse response = solrService.search(searchText, novel.toUpperCase(), book, chapter, rows, start);
+        SolrService.SolrServiceResponse response = solrService.search(searchText, novel, book, chapter, rows, start);
         return new SearchResults(start, rows, response.getNumFound(), response.getSearchResults());
     }
 
     @GET
     @Path("upTo")
     @Produces(MediaType.APPLICATION_JSON)
-    public SearchResults upTo(@QueryParam("text") String searchText, @QueryParam("novel") String novel,
+    public SearchResults upTo(@QueryParam("text") String searchText, @QueryParam("novel") Integer novel,
                               @QueryParam("book") Integer book, @QueryParam("chapter") Integer chapter,
                               @QueryParam("rows") Integer rows, @QueryParam("start") Integer start){
         LOG.info("In SearchController.upTo");
@@ -68,7 +68,7 @@ public class SearchController {
             start = 0;
         }
 
-        SolrService.SolrServiceResponse response = solrService.upToSearch(searchText, novel.toUpperCase(), book, chapter, rows, start);
+        SolrService.SolrServiceResponse response = solrService.upToSearch(searchText, novel, book, chapter, rows, start);
         return new SearchResults(start, rows, response.getNumFound(), response.getSearchResults());
 
     }

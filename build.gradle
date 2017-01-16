@@ -34,6 +34,8 @@ dependencies {
     compile group: 'javax.inject', name: 'javax.inject', version: '1'
 
     compile group: 'javax.json', name: 'javax.json-api', version: '1.0'
+    compile group: 'org.glassfish', name: 'javax.json', version: '1.0.4'
+
 
     //jersey
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-jersey', version: '1.4.3.RELEASE'

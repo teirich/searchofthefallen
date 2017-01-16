@@ -22,7 +22,7 @@
         <form class="search-form-container">
           <div class="search-bar-container">
             <input id="searchText" class="search-bar" type="text" ng-model="text" placeholder="Search"/>
-            <select id="searchNovel" class="novel-select" ng-model="selectedNovel" ng-options="n as novel.display for novel in novels track by novel.abbr">
+            <select id="searchNovel" class="novel-select" ng-model="selectedNovel" ng-options="novel as novel.display for novel in novels track by novel.order">
               <option value="" disabled selected>Select a Novel</option>
             </select>
             <button id="go" class="search-button" ng-click="search()">GO</button>

@@ -27,13 +27,13 @@ public class Parser {
     private Chapter currentChapter;
     private int sequence;
 
-    public Novel parseNovel(String name, BufferedReader reader) {
+    public Novel parseNovel(int number, BufferedReader reader) {
         //initialize
         lastParagraph = null;
         currentLine = null;
         sequence = 0;
 
-        novel = new Novel(name);
+        novel = new Novel(number);
         currentBook = new Book(-1);
         currentChapter = new Chapter(-1);
 
@@ -81,7 +81,7 @@ public class Parser {
         novel.addBook(currentBook);
     }
 
-    //look at this shit
+    //look at this janky shit
     private int resolveChapterNumber(String string) {
         switch (string) {
             case "Prologue": return 0;

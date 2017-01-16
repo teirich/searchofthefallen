@@ -31,10 +31,10 @@ public class SolrService {
         return "works";
     }
 
-    private static SolrQuery singleNovelQuery(@NotNull String searchText, @NotNull String novel, Integer book, Integer chapter, @NotNull Integer rows, @NotNull Integer start) {
+    private static SolrQuery singleNovelQuery(@NotNull String searchText, @NotNull Integer novel, Integer book, Integer chapter, @NotNull Integer rows, @NotNull Integer start) {
         SolrQuery query = commonQuery(searchText, rows, start);
 
-        query.set("fq", "novel:" + novel + " ");
+        query.set("fq", "novel:" + novel);
 
         if(book != null) {
             query.set("fq", "book:" + book);
@@ -51,7 +51,7 @@ public class SolrService {
         SolrQuery query = new SolrQuery();
 
         query.set("q", "text:" + searchText);
-        query.set("sort", "sequence asc");
+        query.set("sort", "novel asc, sequence asc");
         query.set("fl", "text,chapter,book,novel,sequence,nextText,prevText");
         query.setRows(rows);
         query.setStart(start);
@@ -63,24 +63,19 @@ public class SolrService {
         return "[0 TO " + count + "]";
     }
 
-    private static String novelsBeforeString (String novel) {
-        List<Novels> before = Novels.before(novel);
-        return before.stream()
-                .map(Novels::novel)
-                .map(Novel::getAbbreviation)
-                .map(String::toUpperCase)
-                .collect(Collectors.joining(" , "));
+    private static String oneToString(int count) {
+        return "[1 TO " + count + "]";
     }
 
-    private static SolrQuery upToQuery(@NotNull String searchText, @NotNull String novel, Integer book, Integer chapter, @NotNull Integer rows, @NotNull Integer start) {
+    private static SolrQuery upToQuery(@NotNull String searchText, @NotNull Integer novel, Integer book, Integer chapter, @NotNull Integer rows, @NotNull Integer start) {
         SolrQuery query = commonQuery(searchText, rows, start);
-        String beforeString = novelsBeforeString(novel);
+        String beforeString = oneToString(novel);
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("novel:(");
+        sb.append("novel:");
         sb.append(beforeString);
-        sb.append(") OR (novel:");
+        sb.append(" OR (novel:");
         sb.append(novel);
 
         if(book != null) {
@@ -115,12 +110,12 @@ public class SolrService {
         }
     }
 
-    public SolrServiceResponse upToSearch(String searchText, String novel, Integer book, Integer chapter, Integer rows, Integer start){
+    public SolrServiceResponse upToSearch(String searchText, Integer novel, Integer book, Integer chapter, Integer rows, Integer start){
         SolrQuery query = upToQuery(searchText, novel, book, chapter, rows, start);
         return doQuery(query);
     }
 
-    public SolrServiceResponse search(String searchText, String novel, Integer book, Integer chapter, Integer rows, Integer start) {
+    public SolrServiceResponse search(String searchText, Integer novel, Integer book, Integer chapter, Integer rows, Integer start) {
         SolrQuery query = singleNovelQuery(searchText, novel, book, chapter, rows, start);
         return doQuery(query);
     }

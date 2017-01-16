@@ -3,7 +3,9 @@ package com.sotf.server.constants;
 import com.sotf.server.model.Book;
 import com.sotf.server.model.Novel;
 
+import javax.json.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -122,6 +124,36 @@ public enum Novels {
 
     Novels(Novel novel) {
         this.novel = novel;
+    }
+
+    private JsonObject toJson() {
+        Novel n= this.novel;
+        List<Book> books = n.getContents();
+        JsonArrayBuilder booksBuilder = Json.createArrayBuilder();
+        for(Book b : books) {
+            JsonObjectBuilder bookBuilder = Json.createObjectBuilder();
+            bookBuilder.add("title", b.title());
+            bookBuilder.add("start", b.getStartChapter());
+            bookBuilder.add("end", b.getEndChapter());
+            bookBuilder.add("number", b.getBookNumber());
+            booksBuilder.add(bookBuilder);
+        }
+
+        return Json.createObjectBuilder()
+                .add("name", n.getTitle())
+                .add("abbreviation", n.getAbbreviation())
+                .add("order", n.getReadingOrder())
+                .add("books", booksBuilder)
+                .build();
+    }
+
+    public static JsonArray allToJson() {
+        List<Novels> novelList = Arrays.asList(Novels.values());
+        JsonArrayBuilder b = Json.createArrayBuilder();
+        for(Novels novel : novelList) {
+            b.add(novel.toJson());
+        }
+        return b.build();
     }
 
 }

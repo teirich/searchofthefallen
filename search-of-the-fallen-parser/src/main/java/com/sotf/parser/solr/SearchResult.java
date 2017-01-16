@@ -1,6 +1,11 @@
-package com.sotf.server.model;
+package com.sotf.parser.solr;
 
+import com.sotf.parser.language.Book;
+import com.sotf.parser.language.Chapter;
+import com.sotf.parser.language.Novel;
+import com.sotf.parser.language.Paragraph;
 import org.apache.solr.client.solrj.beans.Field;
+import org.apache.solr.common.SolrInputDocument;
 
 /**
  * Created by thad on 12/10/16.
@@ -84,4 +89,23 @@ public class SearchResult {
         this.sequence = sequence;
     }
 
+
+    public SearchResult (Paragraph paragraph) {
+        Chapter chapter = paragraph.getChapter();
+        Book book = paragraph.getBook();
+        Novel novel = paragraph.getNovel();
+
+        Paragraph prev = paragraph.getPrevious();
+        Paragraph next = paragraph.getNext();
+
+        SolrInputDocument document = new SolrInputDocument();
+        this.text = paragraph.getText();
+        this.chapter = chapter.getNumber();
+        this.book = book.getNumber();
+        this.novel = novel.getNumber();
+        this.sequence = paragraph.getSequence();
+
+        if (prev != null) this.prevText = prev.getText();
+        if (next != null) this.nextText =  next.getText();
+    }
 }

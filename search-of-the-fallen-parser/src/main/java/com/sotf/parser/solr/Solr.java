@@ -20,12 +20,11 @@ public class Solr {
         SolrClient solr = new HttpSolrClient.Builder(url).build();
 
         try {
-            ParagraphSolrDocumentBuilder builder = new ParagraphSolrDocumentBuilder();
             for (Book book : novel.getBooks()) {
                 for (Chapter chapter : book.getChapters()) {
                     for (Paragraph paragraph : chapter.getParagraphs()) {
-                        SolrInputDocument doc = builder.build(paragraph);
-                        solr.add(doc);
+                        SearchResult searchResult = new SearchResult(paragraph);
+                        solr.addBean(searchResult);
                     }
                 }
             }

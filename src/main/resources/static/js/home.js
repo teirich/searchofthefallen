@@ -1,16 +1,16 @@
 angular.module('search-of-the-fallen', [])
     .controller('home', function($scope, $http, $sce) {
         $scope.novels = [
-            {abbr: 'GOTM', display: 'Gardens of the Moon'},
-            {abbr: 'DG', display: 'Deadhouse Gates'},
-            {abbr: 'MOI', display: 'Memories of Ice'},
-            {abbr: 'HOC', display: 'House of Chains'},
-            {abbr: 'MT', display: 'Midnight Tides'},
-            {abbr: 'BH', display: 'The Bonehunters'},
-            {abbr: 'RG', display: 'Reaper\'s Gale'},
-            {abbr: 'TTH', display: 'Toll the Hounds'},
-            {abbr: 'DOD', display: 'Dust of Dreams'},
-            {abbr: 'TCG', display: 'The Crippled God'}
+            {order: 1, display: 'Gardens of the Moon'},
+            {order: 2, display: 'Deadhouse Gates'},
+            {order: 3, display: 'Memories of Ice'},
+            {order: 4, display: 'House of Chains'},
+            {order: 5, display: 'Midnight Tides'},
+            {order: 6, display: 'The Bonehunters'},
+            {order: 7, display: 'Reaper\'s Gale'},
+            {order: 8, display: 'Toll the Hounds'},
+            {order: 9, display: 'Dust of Dreams'},
+            {order: 10, display: 'The Crippled God'}
         ];
 
         $scope.rowOptions = [10, 25, 50, 100];
@@ -36,7 +36,7 @@ angular.module('search-of-the-fallen', [])
             $http.get(path, {
                 params: {
                     text: $scope.text,
-                    novel: $scope.selectedNovel.abbr,
+                    novel: $scope.selectedNovel.order,
                     rows: $scope.rows,
                     start: $scope.start
                 }

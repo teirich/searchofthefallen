@@ -14,6 +14,6 @@ public class SOTFConfig {
 
     @Bean
     public SolrClient solrClient() {
-        return new HttpSolrClient.Builder("http://localhost:8983/solr/sotf3").build();
+        return new HttpSolrClient.Builder("http://localhost:8983/solr/search-of-the-fallen").build();
     }
 }
