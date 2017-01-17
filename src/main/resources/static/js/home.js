@@ -61,15 +61,28 @@ angular.module('search-of-the-fallen', [])
 
         $scope.highlight = function (text) {
             //should really sanitize $scope.text first
-            return $sce.trustAsHtml('<p>' + text.replace(new RegExp($scope.text, 'gi'), function(match) {
+            if($scope.text === undefined || $scope.text === null || $scope.text === '') {
+                return text;
+            }
+            var splitTxt = $scope.text.split(' ');
+            var joinTxt = '(' + splitTxt.join('|') + ')';
+
+            return $sce.trustAsHtml('<p>' + text.replace(new RegExp(joinTxt, 'gi'), function(match) {
                 return '<mark>' + match + '</mark>';
             }) + '</p>');
         };
 
+        $scope.newSearch = function () {
+            $scope.start = 0;
+            $scope.numFound = 0;
+            $scope.pages = 0;
+            $scope.currentPage = 1;
+            $scope.search();
+        };
+
         $scope.search = function () {
-            console.log('in search: ' + $scope.text);
             var path = $scope.upTo ? '/api/search/upTo' : '/api/search';
-            console.log('selected chapter ' + $scope.selectedChapter.value);
+
             $http.get(path, {
                 params: {
                     text: $scope.text,

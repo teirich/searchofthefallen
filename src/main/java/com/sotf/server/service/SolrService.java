@@ -43,6 +43,7 @@ public class SolrService {
         else {
             sb.append("[0 TO *]");
         }
+        sb.append(" AND book:[0 TO *]");
 
         query.set("fq", sb.toString());
         LOG.info("singleNovelQuery: " + query.toString());
@@ -73,8 +74,9 @@ public class SolrService {
         SolrQuery query = commonQuery(searchText, rows, start);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("novel:");
+        sb.append("(novel:");
         sb.append(oneToString(novel));
+        sb.append(" AND chapter:[0 TO *] AND book:[0 TO *])");
         sb.append(" OR (novel:");
         sb.append(novel);
         sb.append(" AND chapter:");
@@ -85,7 +87,7 @@ public class SolrService {
         else {
             sb.append("[0 TO *]");
         }
-
+        sb.append(" AND book:[0 TO *]");
         sb.append(")");
 
         query.set("fq", sb.toString());

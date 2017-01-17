@@ -3,6 +3,7 @@
 <head>
   <title>Malazan: Search of the Fallen</title>
   <link href="css/home.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Eczar|Open+Sans" rel="stylesheet">
   <style type="text/css">
     [ng\:cloak], [ng-cloak], .ng-cloak {
       display: none !important;
@@ -13,16 +14,17 @@
 <body ng-app="search-of-the-fallen">
 
   <div ng-controller="home" ng-cloak class="ng-cloak" >
+    <div id="background"></div>
     <div class="page-container">
       <div class="search-container">
         <div class="heading">
-          <h1>Search of the Fallen</h1>
-          <h2>Full text search for 'Malazan: Book of the Fallen'</h2>
+          <p class="main-heading">Search of the Fallen</p>
+          <p class="sub-heading">Full text search for 'Malazan: Book of the Fallen'</p>
         </div>
         <form class="search-form-container">
           <div class="search-bar-container">
             <input id="searchText" class="search-bar" type="text" ng-model="text" placeholder="Search"/>
-            <button id="go" class="search-button" ng-click="search()">GO</button>
+            <button id="go" class="search-button" ng-click="newSearch()">GO</button>
           </div>
           <div class="search-controls">
             <div>
@@ -46,19 +48,26 @@
         <div class="pagination-container">
           <p>Page {{currentPage}} of {{pages}}</p>
           <div>
-            <button id="prevPage" ng-show="start > 0" ng-click="prevPage()">Previous Page</button>
-            <button id="nextPage" ng-show="(start + rows) <= numFound" ng-click="nextPage()">Next Page</button>
+            <button ng-show="start > 0" ng-click="prevPage()">Previous Page</button>
+            <button ng-show="(start + rows) <= numFound" ng-click="nextPage()">Next Page</button>
           </div>
         </div>
-        <div id="result" class="result" ng-repeat="result in results" ng-show="results.length > 0">
-          <p>{{result.prevText}}</p>
+        <div id="result" class="result" ng-init="result.isActive = false" ng-click="result.isActive=!result.isActive" ng-repeat="result in results" ng-show="results.length > 0">
+          <p ng-show="result.isActive && result.prevText">{{result.prevText}}</p>
           <div ng-bind-html="highlight(result.text)"></div>
-          <p>{{result.nextText}}</p>
+          <p ng-show="result.isActive && result.nextText">{{result.nextText}}</p>
           <p>{{resolveChapter(result.chapter)}}</p>
           <p>{{resolveNovel(result.novel)}}</p>
         </div>
         <div class="empty-result" ng-show="results.length < 1">
           <p>No results found.</p>
+        </div>
+        <div class="pagination-container">
+          <p>Page {{currentPage}} of {{pages}}</p>
+          <div>
+            <button ng-show="start > 0" ng-click="prevPage()">Previous Page</button>
+            <button ng-show="(start + rows) <= numFound" ng-click="nextPage()">Next Page</button>
+          </div>
         </div>
       </div>
     </div>
