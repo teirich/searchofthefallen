@@ -1,17 +1,5 @@
 angular.module('search-of-the-fallen', [])
     .controller('home', function($scope, $http, $sce) {
-        $scope.novels = [
-            {order: 1, display: 'Gardens of the Moon'},
-            {order: 2, display: 'Deadhouse Gates'},
-            {order: 3, display: 'Memories of Ice'},
-            {order: 4, display: 'House of Chains'},
-            {order: 5, display: 'Midnight Tides'},
-            {order: 6, display: 'The Bonehunters'},
-            {order: 7, display: 'Reaper\'s Gale'},
-            {order: 8, display: 'Toll the Hounds'},
-            {order: 9, display: 'Dust of Dreams'},
-            {order: 10, display: 'The Crippled God'}
-        ];
 
         $scope.rowOptions = [10, 25, 50, 100];
 
@@ -23,6 +11,54 @@ angular.module('search-of-the-fallen', [])
         $scope.pages = 0;
         $scope.currentPage = 1;
 
+        $scope.getStructure = function () {
+            $http.get('/api/info/novelStructure')
+                .success(function(data){
+                   $scope.novels = data;
+                });
+        };
+
+        $scope.getStructure();
+
+        $scope.generateDropdown = function (novel) {
+            var values = [];
+            if (!novel) {
+                return values;
+            }
+            novel.books.forEach (function (book) {
+                if(book.number === 0 || book.number === 100 || book.number === 101){
+                    var bookend = {
+                        title: book.title,
+                        value: book.number,
+                        disabled: false
+                    };
+                    values.push(bookend);
+                } else {
+                    var header = {
+                        title: '-' + book.title + '-',
+                        value: null,
+                        disabled: true
+                    };
+                    values.push(header);
+
+                    for (var i = book.start; i <= book.end; i++) {
+                        var chapter = {
+                            title: 'Chapter ' + i,
+                            value: i,
+                            disabled: false
+                        };
+                        values.push(chapter);
+                    }
+                }
+             });
+            return values;
+        };
+
+        $scope.$watch('selectedNovel', function (newVal, oldVal){
+            $scope.bookDropdown = $scope.generateDropdown(newVal);
+            $scope.selectedChapter = '';
+        });
+
         $scope.highlight = function (text) {
             //should really sanitize $scope.text first
             return $sce.trustAsHtml('<p>' + text.replace(new RegExp($scope.text, 'gi'), function(match) {
@@ -33,14 +69,16 @@ angular.module('search-of-the-fallen', [])
         $scope.search = function () {
             console.log('in search: ' + $scope.text);
             var path = $scope.upTo ? '/api/search/upTo' : '/api/search';
+            console.log('selected chapter ' + $scope.selectedChapter.value);
             $http.get(path, {
                 params: {
                     text: $scope.text,
                     novel: $scope.selectedNovel.order,
+                    chapter: $scope.selectedChapter,
                     rows: $scope.rows,
                     start: $scope.start
                 }
-            }).success(function (data) {
+            }).success (function (data) {
                 console.log('in success');
                 $scope.numFound = data.numFound;
                 $scope.rows = data.rows;
@@ -51,14 +89,36 @@ angular.module('search-of-the-fallen', [])
             });
         };
 
-        $scope.nextPage = function(){
+        $scope.resolveNovel = function (novel) {
+            if (novel === 0 || novel === 100 || novel === 101) {
+                return '';
+            }
+            return $scope.novels.find(function (elem) {
+               return elem.order === novel;
+            }).name;
+        };
+
+        $scope.resolveChapter = function (chapterNum) {
+            if (chapterNum === 0) {
+                return 'Prologue';
+            }
+            if (chapterNum === 100) {
+                return 'Epilogue';
+            }
+            if (chapterNum === 101) {
+                return 'Epilogue II';
+            }
+            return 'Chapter ' + chapterNum;
+        };
+
+        $scope.nextPage = function () {
             console.log('in nextPage');
             $scope.start = $scope.start + $scope.rows;
             $scope.currentPage++;
             $scope.search();
         };
 
-        $scope.prevPage = function(){
+        $scope.prevPage = function () {
             console.log('in prevPage');
             $scope.start = $scope.start - $scope.rows;
 

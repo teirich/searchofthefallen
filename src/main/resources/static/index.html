@@ -22,12 +22,18 @@
         <form class="search-form-container">
           <div class="search-bar-container">
             <input id="searchText" class="search-bar" type="text" ng-model="text" placeholder="Search"/>
-            <select id="searchNovel" class="novel-select" ng-model="selectedNovel" ng-options="novel as novel.display for novel in novels track by novel.order">
-              <option value="" disabled selected>Select a Novel</option>
-            </select>
             <button id="go" class="search-button" ng-click="search()">GO</button>
           </div>
           <div class="search-controls">
+            <div>
+              <select class="novel-select" ng-model="selectedNovel" ng-options="novel as novel.name for novel in novels track by novel.order">
+                <option value="" disabled selected>Select a Novel</option>
+              </select>
+              <select class="chapter-select" ng-model="selectedChapter" ng-show="selectedNovel">
+                <option value="" disabled selected>Select a Chapter</option>
+                <option ng-repeat="book in bookDropdown" ng-value="book.value" ng-disabled="book.disabled">{{book.title}}</option>
+              </select>
+            </div><br/>
             <label for="searchUpTo">Previous Novels:</label><input id="searchUpTo" class="checkbox search-control" type="checkbox" ng-model="upTo"/><br/>
             <label for="selectRows">Rows:</label>
             <select id="selectRows" ng-model="rows" class="search-control">
@@ -44,12 +50,15 @@
             <button id="nextPage" ng-show="(start + rows) <= numFound" ng-click="nextPage()">Next Page</button>
           </div>
         </div>
-        <div id="result" class="result" ng-repeat="result in results">
+        <div id="result" class="result" ng-repeat="result in results" ng-show="results.length > 0">
           <p>{{result.prevText}}</p>
           <div ng-bind-html="highlight(result.text)"></div>
           <p>{{result.nextText}}</p>
-          <p>Chapter {{result.chapter}}</p>
-          <p>Novel {{result.novel}}</p>
+          <p>{{resolveChapter(result.chapter)}}</p>
+          <p>{{resolveNovel(result.novel)}}</p>
+        </div>
+        <div class="empty-result" ng-show="results.length < 1">
+          <p>No results found.</p>
         </div>
       </div>
     </div>

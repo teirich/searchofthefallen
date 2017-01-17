@@ -30,8 +30,8 @@ public class SearchController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public SearchResults search(@QueryParam("text") String searchText, @QueryParam("novel") Integer novel,
-                           @QueryParam("book") Integer book, @QueryParam("chapter") Integer chapter,
-                           @QueryParam("rows") Integer rows, @QueryParam("start") Integer start) {
+                                @QueryParam("chapter") Integer chapter, @QueryParam("rows") Integer rows,
+                                @QueryParam("start") Integer start) {
         LOG.info("In SearchController.search");
         if(searchText == null || novel == null) {
             throw new BadRequestException("Missing required parameter");
@@ -45,7 +45,7 @@ public class SearchController {
             start = 0;
         }
 
-        SolrService.SolrServiceResponse response = solrService.search(searchText, novel, book, chapter, rows, start);
+        SolrService.SolrServiceResponse response = solrService.search(searchText, novel, chapter, rows, start);
         return new SearchResults(start, rows, response.getNumFound(), response.getSearchResults());
     }
 
@@ -53,8 +53,8 @@ public class SearchController {
     @Path("upTo")
     @Produces(MediaType.APPLICATION_JSON)
     public SearchResults upTo(@QueryParam("text") String searchText, @QueryParam("novel") Integer novel,
-                              @QueryParam("book") Integer book, @QueryParam("chapter") Integer chapter,
-                              @QueryParam("rows") Integer rows, @QueryParam("start") Integer start){
+                              @QueryParam("chapter") Integer chapter, @QueryParam("rows") Integer rows,
+                              @QueryParam("start") Integer start){
         LOG.info("In SearchController.upTo");
         if(searchText == null || novel == null) {
             throw new BadRequestException("Missing required parameter");
@@ -68,7 +68,7 @@ public class SearchController {
             start = 0;
         }
 
-        SolrService.SolrServiceResponse response = solrService.upToSearch(searchText, novel, book, chapter, rows, start);
+        SolrService.SolrServiceResponse response = solrService.upToSearch(searchText, novel, chapter, rows, start);
         return new SearchResults(start, rows, response.getNumFound(), response.getSearchResults());
 
     }

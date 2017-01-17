@@ -49,7 +49,7 @@ button {
 .search-bar {
     display: inline-block;
 
-    width: calc(100% - 255px);
+    width: calc(100% - 76px);
     height: 35px;
 
     font-size: 10pt;
@@ -66,8 +66,10 @@ button {
 
 .novel-select {
     display: inline-block;
+}
 
-    width: 160px;
+.chapter-select {
+    display: inline-block;
 }
 
 select {
@@ -95,6 +97,9 @@ select {
 .search-container {
     position: relative;
 
+    padding-top:50px;
+    padding-bottom:70px;
+
     display:block;
     margin: auto;
     max-width: calc(100% - 20px);
@@ -106,7 +111,7 @@ select {
     left: 0;
     right: 0;
     bottom: 0;
-    height: 400px;
+    height: auto;
     background: #222222;
 }
 
@@ -119,7 +124,13 @@ select {
     max-width: calc(100% - 20px);
     width: 980px;
 
+    padding-bottom: 50px;
+
     background: #222222;
+}
+
+.empty-result {
+    margin:20px;
 }
 
 .result {
@@ -147,14 +158,12 @@ select {
 }
 
 .search-controls {
-    margin-left: 80%;
 }
 .search-control {
     margin: 10px;
 }
 
 .heading {
-    padding-top: 50px;
 }
 
 p, label{
