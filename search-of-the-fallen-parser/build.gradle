@@ -8,13 +8,16 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'idea'
 
-jar {
+task fatJar(type: Jar) {
     baseName = 'searchofthefallen-parser'
     version =  '0.1.0'
 
     manifest {
         attributes 'Main-Class': 'com.sotf.parser.Main'
     }
+
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 mainClassName = "com.sotf.Main"
