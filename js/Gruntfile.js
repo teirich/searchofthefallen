@@ -71,6 +71,14 @@ module.exports = function (grunt) {
         hostname: 'localhost',
         livereload: 35729
       },
+      proxies: [
+        {
+          context: '/api',
+          host: 'searchofthefallen.com',
+          port: 80,
+          https: false
+        }
+      ],
       livereload: {
         options: {
           open: true,
@@ -85,7 +93,8 @@ module.exports = function (grunt) {
                 '/app/styles',
                 connect.static('./app/styles')
               ),
-              connect.static(appConfig.app)
+              connect.static(appConfig.app),
+              require('grunt-connect-proxy/lib/utils').proxyRequest
             ];
           }
         }
@@ -431,6 +440,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'wiredep',
+      'configureProxies:server',
       'concurrent:server',
       'autoprefixer:server',
       'connect:livereload',
@@ -474,4 +484,6 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+
+  grunt.loadNpmTasks('grunt-connect-proxy');
 };

@@ -15,8 +15,8 @@ angular.module('search-of-the-fallen')
 
     $scope.getStructure = function () {
       $http.get('/api/info/novelStructure')
-        .then(function(data){
-          $scope.novels = data;
+        .then(function(success){
+          $scope.novels = success.data;
         });
     };
 
@@ -93,7 +93,8 @@ angular.module('search-of-the-fallen')
           rows: $scope.rows,
           start: $scope.start
         }
-      }).then(function (data) {
+      }).then(function (success) {
+        var data = success.data;
         console.log('in success');
         $scope.numFound = data.numFound;
         $scope.rows = data.rows;
