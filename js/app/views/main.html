@@ -1,0 +1,54 @@
+<div class="search-container">
+  <div class="heading">
+    <p class="main-heading">Search of the Fallen</p>
+    <p class="sub-heading">Full text search for 'Malazan: Book of the Fallen'</p>
+  </div>
+  <form class="search-form-container">
+    <div class="search-bar-container">
+      <input id="searchText" class="search-bar" type="text" ng-model="text" placeholder="Search"/>
+      <button id="go" class="search-button" ng-click="newSearch()">GO</button>
+    </div>
+    <div class="search-controls">
+      <div>
+        <select class="novel-select" ng-model="selectedNovel" ng-options="novel as novel.name for novel in novels track by novel.order">
+          <option value="" disabled selected>Select a Novel</option>
+        </select>
+        <select class="chapter-select" ng-model="selectedChapter" ng-show="selectedNovel">
+          <option value="" disabled selected>Select a Chapter</option>
+          <option ng-repeat="book in bookDropdown" ng-value="book.value" ng-disabled="book.disabled">{{book.title}}</option>
+        </select>
+      </div><br/>
+      <label for="searchUpTo">Previous Novels:</label><input id="searchUpTo" class="checkbox search-control" type="checkbox" ng-model="upTo"/><br/>
+      <label for="selectRows">Rows:</label>
+      <select id="selectRows" ng-model="rows" class="search-control">
+        <option ng-repeat="count in rowOptions" ng-value="count">{{count}}</option>
+      </select>
+    </div>
+  </form>
+</div>
+<div ng-show="showResults" class="results-container">
+  <div class="pagination-container">
+    <p>Page {{currentPage}} of {{pages}}</p>
+    <div>
+      <button ng-show="start > 0" ng-click="prevPage()">Previous Page</button>
+      <button ng-show="(start + rows) <= numFound" ng-click="nextPage()">Next Page</button>
+    </div>
+  </div>
+  <div id="result" class="result" ng-init="result.isActive = false" ng-click="result.isActive=!result.isActive" ng-repeat="result in results" ng-show="results.length > 0">
+    <p ng-show="result.isActive && result.prevText">{{result.prevText}}</p>
+    <div ng-bind-html="highlight(result.text)"></div>
+    <p ng-show="result.isActive && result.nextText">{{result.nextText}}</p>
+    <p>{{resolveChapter(result.chapter)}}</p>
+    <p>{{resolveNovel(result.novel)}}</p>
+  </div>
+  <div class="empty-result" ng-show="results.length < 1">
+    <p>No results found.</p>
+  </div>
+  <div class="pagination-container">
+    <p>Page {{currentPage}} of {{pages}}</p>
+    <div>
+      <button ng-show="start > 0" ng-click="prevPage()">Previous Page</button>
+      <button ng-show="(start + rows) <= numFound" ng-click="nextPage()">Next Page</button>
+    </div>
+  </div>
+</div>
