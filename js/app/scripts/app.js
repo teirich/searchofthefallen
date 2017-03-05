@@ -1,5 +1,7 @@
 'use strict';
 
+angular.element(document).foundation();
+
 angular.module('search-of-the-fallen', [
   'ngRoute',
   'ngSanitize',
