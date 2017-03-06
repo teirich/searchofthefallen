@@ -1,7 +1,7 @@
 @import
 "settings",
 "../../bower_components/foundation-sites/assets/foundation"; // import from bower_components/foundation
-$transparent-background: rgba(250,250,250 ,1);
+$transparent-background: rgba(255,255,255,.95);
 $transparent-top-bar: rgba(0,0,0,.50);
 $border:  1px solid #cacaca;
 
@@ -17,13 +17,14 @@ $border:  1px solid #cacaca;
   padding: 30px;
   margin-top: 15px;
   background: $transparent-background;
+  margin-bottom:15px;
 }
 
 .result {
-  background: $white;
   border: $border;
   padding: 20px;
   margin-bottom: 15px;
+  background: $white;
 }
 
 .checkbox-align {
@@ -31,13 +32,13 @@ $border:  1px solid #cacaca;
 }
 
 #background {
-  background: url("../images/sevencities2.jpg");
+  background: url("../images/malazan-map.png") fixed top left;
+  background-size: cover;
   position:fixed;
   top:0;
   bottom:0;
   height:100%;
   width:100%;
-  opacity: .25;
   z-index: -100;
 }
 
@@ -50,6 +51,8 @@ $border:  1px solid #cacaca;
 .top-bar {
   background: $transparent-top-bar;
   color: $white;
+  padding-top: 0;
+  padding-bottom:0;
 }
 .top-bar ul {
   background: none;
@@ -75,4 +78,10 @@ h1, h2 {
 
 h2 {
   font-size: 1.25rem;
+}
+
+.result-location p {
+  margin: 0;
+  text-align: right;
+  font-family: 'Cinzel Decorative', cursive;
 }

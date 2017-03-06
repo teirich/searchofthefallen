@@ -51,11 +51,13 @@
     </div>
   </form>
   <div id="result" class="result" ng-init="result.isActive = false" ng-click="result.isActive=!result.isActive" ng-repeat="result in results" ng-show="results.length > 0">
-    <p ng-show="result.isActive && result.prevText">{{result.prevText}}</p>
+    <p ng-show="!result.isActive && result.prevText">...</p><p ng-show="result.isActive && result.prevText">{{result.prevText}}</p>
     <div ng-bind-html="highlight(result.text)"></div>
-    <p ng-show="result.isActive && result.nextText">{{result.nextText}}</p>
-    <p>{{resolveChapter(result.chapter)}}</p>
-    <p>{{resolveNovel(result.novel)}}</p>
+    <p ng-show="!result.isActive && result.nextText">...</p><p ng-show="result.isActive && result.nextText">{{result.nextText}}</p>
+    <div class="result-location">
+      <p>{{resolveChapter(result.chapter)}}</p>
+      <p>{{resolveNovel(result.novel)}}</p>
+    </div>
   </div>
   <div class="empty-result" ng-show="results.length < 1">
     <p>No results found.</p>
