@@ -1,182 +1,21 @@
 @import
-"../../bower_components/foundation-sites/scss/foundation"; // import from bower_components/foundation
-
-#background {
-  top: 0;
-  left: 0;
-  z-index: -2;
-  width: 100%;
-  height: 100%;
-  background-size: cover!important;
-  background: url(../images/rome.jpg) center center no-repeat;
-  position: fixed;
-}
-
-.search-button {
-  display: inline-block;
-  width: 50px;
-}
-.pagination-container {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-button {
-  height: 35px;
-  background: 0 0;
-  border: 1px solid #FFFFFF;
-  font-size: 10pt;
-  color: #FFFFFF;
-  margin:auto;
-
-}
-
-.search-bar {
-  display: inline-block;
-
-  width: calc(100% - 76px);
-  height: 35px;
-
-  font-size: 10pt;
-
-  padding: 0 5px 0 15px;
-
-  background: 0 0;
-  margin: auto;
-  border: 1px solid #FFFFFF;
-  color: #FFFFFF;
-  border-radius: 0;
-  outline: 0;
-}
-
-.novel-select {
-  display: inline-block;
-}
-
-.chapter-select {
-  display: inline-block;
-}
-
-select {
-  -webkit-appearance: none;
-  -webkit-border-radius: 0px;
-
-  height: 35px;
-
-  background-color: transparent;
-  border: 1px solid #FFFFFF;
-  color: #FFFFFF;
-
-  font-size: 10pt;
-  text-align:center;
-
-  margin: auto;
-  padding:0 10px 0 10px;
-}
-
-.search-bar-container {
-  margin-top: 60px;
-  margin-bottom: 20px;
-}
+"settings",
+"../../bower_components/foundation-sites/assets/foundation"; // import from bower_components/foundation
 
 .search-container {
-  position: relative;
-
-  padding-top:30px;
-  padding-bottom:50px;
-
-  display:block;
-  margin: auto;
-  max-width: calc(100% - 20px);
-  width: 980px; /*maybe remove this*/
-
-  /*top: 50%;
-      transform: translateY(-50%); */
-
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: auto;
-  background: rgba(22,22,22,.85);
+  border: 1px solid;
+  padding: 30px;
+  margin-top: 15px;
 }
 
 .results-container {
-  display:block;
-  margin-top:20px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom:20px;
-  max-width: calc(100% - 20px);
-  width: 980px;
-
-  padding-bottom: 50px;
-
-  background: rgba(22,22,22,.85);
-}
-
-.empty-result {
-  margin:20px;
+  border: 1px solid;
+  padding: 30px;
+  margin-top: 15px;
 }
 
 .result {
-  margin: 20px;
-  border: 1px solid #FFFFFF;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-
-}
-
-.page-container {
-  display:block;
-  margin: auto;
-  max-width: calc(100% - 20px);
-  width: 980px;
-  background: 0 0;
-}
-
-
-.search-form-container {
-  width: 80%;
-  margin: auto;
-}
-
-.search-controls {
-}
-.search-control {
-  margin: 10px;
-}
-
-
-p, label{
-  color: #FFFFFF;
-}
-
-.heading{
-  text-align: center;
-  color: #FFFFFF;
-  font-family: 'Eczar', serif;
-}
-.main-heading {
-  margin: 0;
-  font-size: 42pt;
-}
-
-.sub-heading {
-  margin: 0;
-  font-size:18pt;
-}
-
-input[type="checkbox"] {
-  border: 1px solid #FFFFFF;
-  width: 20px;
-  height: 20px;
-  color: #FFFFFF;
-}
-
-body {
-  font-size: 11pt;
-  font-family: 'Open Sans', sans-serif;
+  border: 1px solid;
+  padding: 20px;
+  margin-bottom: 15px;
 }
