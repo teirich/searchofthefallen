@@ -7,7 +7,7 @@
     <div class="input-group">
         <input class="input-group-field" type="text" ng-model="text" placeholder="Search"/>
         <div class="input-group-button">
-          <button id="go" class="button" ng-click="newSearch()">GO</button>
+          <button id="go" class="button" ng-click="newSearch()"><i class="fa fa-search"></i></button>
         </div>
     </div>
     <div class="row">
@@ -39,14 +39,16 @@
   </form>
 </div>
 <div ng-show="showResults" class="results-container">
-  <p>Page {{currentPage}} of {{pages}}</p>
   <form>
     <div class="row">
-      <div class="small-6 columns">
-        <button class="float-left button" ng-show="start > 0" ng-click="prevPage()">Previous Page</button>
+      <div class="small-4 columns">
+        <button class="float-left button" ng-disabled="start <= 0" ng-click="prevPage()"><i class="fa fa-angle-double-left"></i> Previous Page</button>
       </div>
-      <div class="small-6 columns">
-        <button class="float-right button" ng-show="(start + rows) <= numFound" ng-click="nextPage()">Next Page</button>
+      <div class="small-4 columns">
+        <p class="pagination-count">Page {{currentPage}} of {{pages}}</p>
+      </div>
+      <div class="small-4 columns">
+        <button class="float-right button" ng-disabled="(start + rows) > numFound" ng-click="nextPage()">Next Page <i class="fa fa-angle-double-right"></i></button>
       </div>
     </div>
   </form>
@@ -62,14 +64,16 @@
   <div class="empty-result" ng-show="results.length < 1">
     <p>No results found.</p>
   </div>
-  <p>Page {{currentPage}} of {{pages}}</p>
   <form>
     <div class="row">
-      <div class="small-6 columns">
-        <button class="float-left button" ng-show="start > 0" ng-click="prevPage()">Previous Page</button>
+      <div class="small-4 columns">
+        <button class="float-left button" ng-disabled="start <= 0" ng-click="prevPage()"><i class="fa fa-angle-double-left"></i> Previous Page</button>
       </div>
-      <div class="small-6 columns">
-        <button class="float-right button" ng-show="(start + rows) <= numFound" ng-click="nextPage()">Next Page</button>
+      <div class="small-4 columns">
+        <p class="pagination-count">Page {{currentPage}} of {{pages}}</p>
+      </div>
+      <div class="small-4 columns">
+        <button class="float-right button" ng-disabled="(start + rows) > numFound" ng-click="nextPage()">Next Page <i class="fa fa-angle-double-right"></i></button>
       </div>
     </div>
   </form>
