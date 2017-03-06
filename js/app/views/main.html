@@ -4,33 +4,35 @@
     <h2>Full text search for 'Malazan: Book of the Fallen'</h2>
   </div>
   <form>
-    <div class="row">
-      <div class="small-10 columns">
-        <input type="text" ng-model="text" placeholder="Search"/>
-      </div>
-      <div class="small-2 columns">
-        <button id="go" class="button small-12" ng-click="newSearch()">GO</button>
-      </div>
+    <div class="input-group">
+        <input class="input-group-field" type="text" ng-model="text" placeholder="Search"/>
+        <div class="input-group-button">
+          <button id="go" class="button" ng-click="newSearch()">GO</button>
+        </div>
     </div>
     <div class="row">
       <div class="small-6 columns">
-        <select ng-model="selectedNovel" ng-options="novel as novel.name for novel in novels track by novel.order">
-          <option value="" disabled selected>Select a Novel</option>
-        </select>
-        <label for="selectRows">Rows:
-          <select id="selectRows" ng-model="rows" class="search-control">
+        <label> Select a Novel:
+          <select ng-model="selectedNovel" ng-options="novel as novel.name for novel in novels track by novel.order">
+            <option value="" disabled selected>Novel</option>
+          </select>
+        </label>
+        <label>Rows:
+          <select id="selectRows" ng-model="rows">
             <option ng-repeat="count in rowOptions" ng-value="count">{{count}}</option>
           </select>
         </label>
       </div>
       <div class="small-6 columns">
-        <select class="chapter-select" ng-model="selectedChapter" ng-disabled="!selectedNovel">
-          <option value="" disabled selected>Select a Chapter</option>
-          <option ng-repeat="book in bookDropdown" ng-value="book.value" ng-disabled="book.disabled">{{book.title}}</option>
-        </select>
-        <label for="searchUpTo">Previous Novels:
-          <input id="searchUpTo" class="checkbox search-control" type="checkbox" ng-model="upTo"/>
+        <label>Select a Chapter:
+          <select class="chapter-select" ng-model="selectedChapter" ng-disabled="!selectedNovel">
+            <option value="" disabled selected>Chapter</option>
+            <option ng-repeat="book in bookDropdown" ng-value="book.value" ng-disabled="book.disabled">{{book.title}}</option>
+          </select>
         </label>
+        <div class="checkbox-align">
+          <input id="searchUpTo" type="checkbox" ng-model="upTo"/><label>Include Previous Novels in Search</label>
+        </div>
       </div>
     </div>
 

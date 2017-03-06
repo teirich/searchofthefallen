@@ -7,7 +7,7 @@
   <title>Malazan: Search of the Fallen</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css?family=Eczar|Open+Sans" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative|Open+Sans" rel="stylesheet">
   <style type="text/css">
     [ng\:cloak], [ng-cloak], .ng-cloak {
       display: none !important;
@@ -28,21 +28,21 @@
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
-<div id="background"></div>
 <div class="top-bar">
   <div class="top-bar-title">SOTF</div>
   <div class="top-bar-right">
     <ul class="menu">
-      <li><a href="#">Search</a></li>
-      <li><a href="#">About</a></li>
+      <li><a class="menu-option" href="#">Search</a></li>
+      <li><a class="menu-option" href="#">About</a></li>
     </ul>
   </div>
 </div>
 
+<div id="background"></div>
+
 <div class="row medium-9 large-8 columns">
   <div ng-view=""></div>
 </div>
-
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <script>
   !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
@@ -63,8 +63,7 @@
 <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 <script src="bower_components/angular-touch/angular-touch.js"></script>
 <script src="bower_components/what-input/dist/what-input.js"></script>
-<script src="bower_components/foundation-sites/dist/js/foundation.min.js"></script>
-
+<script src="bower_components/foundation-sites/dist/js/foundation.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
