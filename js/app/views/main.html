@@ -24,7 +24,7 @@
         </label>
       </div>
       <div class="small-6 columns">
-        <label>Select a Chapter:
+        <label>Select a Chapter (Optional):
           <select class="chapter-select" ng-model="selectedChapter" ng-disabled="!selectedNovel">
             <option value="" disabled selected>Chapter</option>
             <option ng-repeat="book in bookDropdown" ng-value="book.value" ng-disabled="book.disabled">{{book.title}}</option>
@@ -42,21 +42,7 @@
     <p>No results found.</p>
   </div>
   <div ng-show="results.length > 0">
-    <div ng-show="pages > 1">
-      <form>
-        <div class="row">
-          <div class="small-4 columns">
-            <button class="float-left button" ng-disabled="start <= 0" ng-click="prevPage()"><i class="fa fa-angle-double-left"></i> Previous Page</button>
-          </div>
-          <div class="small-4 columns">
-            <p class="pagination-count">Page {{currentPage}} of {{pages}}</p>
-          </div>
-          <div class="small-4 columns">
-            <button class="float-right button" ng-disabled="(start + rows) > numFound" ng-click="nextPage()">Next Page <i class="fa fa-angle-double-right"></i></button>
-          </div>
-        </div>
-      </form>
-    </div>
+    <pagination current-page="currentPage" total-pages="pages" prev-page-fn="prevPage" next-page-fn="nextPage"></pagination>
     <div id="result" class="result" ng-init="result.isActive = false" ng-click="result.isActive=!result.isActive" ng-repeat="result in results" ng-show="results.length > 0">
       <p ng-show="!result.isActive && result.prevText">...</p><p ng-show="result.isActive && result.prevText">{{result.prevText}}</p>
       <div ng-bind-html="highlight(result.text)"></div>
@@ -66,20 +52,6 @@
         <p>{{resolveNovel(result.novel)}}</p>
       </div>
     </div>
-    <div ng-show="pages > 1">
-      <form>
-        <div class="row">
-          <div class="small-4 columns">
-            <button class="float-left button" ng-disabled="start <= 0" ng-click="prevPage()"><i class="fa fa-angle-double-left"></i> Previous Page</button>
-          </div>
-          <div class="small-4 columns">
-            <p class="pagination-count">Page {{currentPage}} of {{pages}}</p>
-          </div>
-          <div class="small-4 columns">
-            <button class="float-right button" ng-disabled="(start + rows) > numFound" ng-click="nextPage()">Next Page <i class="fa fa-angle-double-right"></i></button>
-          </div>
-        </div>
-      </form>
-    </div>
+    <pagination current-page="currentPage" total-pages="pages" prev-page-fn="prevPage" next-page-fn="nextPage"></pagination>
   </div>
 </div>
