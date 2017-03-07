@@ -27,6 +27,23 @@ module.exports = function (grunt) {
     // Project settings
     yeoman: appConfig,
 
+    sass: {
+      options: {
+        /** Only use include_paths if extracting elements from Bower */
+        includePaths: ['bower_components/foundation-sites/assets']
+      }, //options
+      dist: {
+        options: {
+          outputStyle: 'expanded',
+          sourceMap: false
+        },
+        files: {
+          'css/foundation.css': 'scss/foundation.scss',
+          'css/main.css': 'scss/main.scss'
+        }
+      }
+    }, // sass
+
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       bower: {
@@ -153,7 +170,10 @@ module.exports = function (grunt) {
             '<%= yeoman.dist %>/{,*/}*',
             '!<%= yeoman.dist %>/.git{,*/}*'
           ]
-        }]
+        }],
+        options: {
+          force: true
+        }
       },
       server: '.tmp'
     },
@@ -188,6 +208,7 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
+        exclude: ['foundation.css'],
         ignorePath:  /\.\.\//
       },
       test: {
@@ -221,7 +242,7 @@ module.exports = function (grunt) {
         imagesDir: '<%= yeoman.app %>/images',
         javascriptsDir: '<%= yeoman.app %>/scripts',
         fontsDir: '<%= yeoman.app %>/styles/fonts',
-        importPath: './bower_components',
+        importPath: './bower_components/foundation-sites/scss',
         httpImagesPath: '/images',
         httpGeneratedImagesPath: '/images/generated',
         httpFontsPath: '/styles/fonts',
@@ -441,6 +462,7 @@ module.exports = function (grunt) {
       'clean:server',
       'wiredep',
       'configureProxies:server',
+      'sass',
       'concurrent:server',
       'autoprefixer:server',
       'connect:livereload',
@@ -456,6 +478,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     'wiredep',
+    'sass',
     'concurrent:test',
     'autoprefixer',
     'connect:test',
@@ -466,6 +489,7 @@ module.exports = function (grunt) {
     'clean:dist',
     'wiredep',
     'useminPrepare',
+    'sass',
     'concurrent:dist',
     'autoprefixer',
     'concat',
@@ -484,6 +508,7 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
-
+  grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-connect-proxy');
+
 };

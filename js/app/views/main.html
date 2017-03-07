@@ -1,54 +1,57 @@
 <div class="search-container">
   <div class="heading">
-    <p class="main-heading">Search of the Fallen</p>
-    <p class="sub-heading">Full text search for 'Malazan: Book of the Fallen'</p>
+    <h1>Search of the Fallen</h1>
+    <h2>Full text search for 'Malazan: Book of the Fallen'</h2>
   </div>
-  <form class="search-form-container">
-    <div class="search-bar-container">
-      <input id="searchText" class="search-bar" type="text" ng-model="text" placeholder="Search"/>
-      <button id="go" class="search-button" ng-click="newSearch()">GO</button>
+  <form>
+    <div class="search-bar input-group">
+        <input class="input-group-field" type="text" ng-model="text" placeholder="Search"/>
+        <div class="input-group-button">
+          <button id="go" class="button" ng-click="newSearch()"><i class="fa fa-search"></i></button>
+        </div>
     </div>
-    <div class="search-controls">
-      <div>
-        <select class="novel-select" ng-model="selectedNovel" ng-options="novel as novel.name for novel in novels track by novel.order">
-          <option value="" disabled selected>Select a Novel</option>
-        </select>
-        <select class="chapter-select" ng-model="selectedChapter" ng-show="selectedNovel">
-          <option value="" disabled selected>Select a Chapter</option>
-          <option ng-repeat="book in bookDropdown" ng-value="book.value" ng-disabled="book.disabled">{{book.title}}</option>
-        </select>
-      </div><br/>
-      <label for="searchUpTo">Previous Novels:</label><input id="searchUpTo" class="checkbox search-control" type="checkbox" ng-model="upTo"/><br/>
-      <label for="selectRows">Rows:</label>
-      <select id="selectRows" ng-model="rows" class="search-control">
-        <option ng-repeat="count in rowOptions" ng-value="count">{{count}}</option>
-      </select>
+    <div class="row">
+      <div class="small-6 columns">
+        <label> Select a Novel:
+          <select ng-model="selectedNovel" ng-options="novel as novel.name for novel in novels track by novel.order">
+            <option value="" disabled selected>Novel</option>
+          </select>
+        </label>
+        <label>Rows:
+          <select id="selectRows" ng-model="rows">
+            <option ng-repeat="count in rowOptions" ng-value="count">{{count}}</option>
+          </select>
+        </label>
+      </div>
+      <div class="small-6 columns">
+        <label>Select a Chapter (Optional):
+          <select class="chapter-select" ng-model="selectedChapter" ng-disabled="!selectedNovel">
+            <option value="" selected>All Chapters</option>
+            <option ng-repeat="book in bookDropdown" ng-value="book.value" ng-disabled="book.disabled">{{book.title}}</option>
+          </select>
+        </label>
+        <div class="checkbox-align">
+          <input id="searchUpTo" type="checkbox" ng-model="upTo"/><label>Search Up To This Point</label>
+        </div>
+      </div>
     </div>
   </form>
 </div>
 <div ng-show="showResults" class="results-container">
-  <div class="pagination-container">
-    <p>Page {{currentPage}} of {{pages}}</p>
-    <div>
-      <button ng-show="start > 0" ng-click="prevPage()">Previous Page</button>
-      <button ng-show="(start + rows) <= numFound" ng-click="nextPage()">Next Page</button>
-    </div>
-  </div>
-  <div id="result" class="result" ng-init="result.isActive = false" ng-click="result.isActive=!result.isActive" ng-repeat="result in results" ng-show="results.length > 0">
-    <p ng-show="result.isActive && result.prevText">{{result.prevText}}</p>
-    <div ng-bind-html="highlight(result.text)"></div>
-    <p ng-show="result.isActive && result.nextText">{{result.nextText}}</p>
-    <p>{{resolveChapter(result.chapter)}}</p>
-    <p>{{resolveNovel(result.novel)}}</p>
-  </div>
   <div class="empty-result" ng-show="results.length < 1">
     <p>No results found.</p>
   </div>
-  <div class="pagination-container">
-    <p>Page {{currentPage}} of {{pages}}</p>
-    <div>
-      <button ng-show="start > 0" ng-click="prevPage()">Previous Page</button>
-      <button ng-show="(start + rows) <= numFound" ng-click="nextPage()">Next Page</button>
+  <div ng-show="results.length > 0">
+    <pagination current-page="currentPage" total-pages="pages" prev-page-fn="prevPage" next-page-fn="nextPage"></pagination>
+    <div id="result" class="result" ng-init="result.isActive = false" ng-click="result.isActive=!result.isActive" ng-repeat="result in results" ng-show="results.length > 0">
+      <p ng-show="!result.isActive && result.prevText">...</p><p ng-show="result.isActive && result.prevText">{{result.prevText}}</p>
+      <div ng-bind-html="highlight(result.text)"></div>
+      <p ng-show="!result.isActive && result.nextText">...</p><p ng-show="result.isActive && result.nextText">{{result.nextText}}</p>
+      <div class="result-location">
+        <p>{{resolveChapter(result.chapter)}}</p>
+        <p>{{resolveNovel(result.novel)}}</p>
+      </div>
     </div>
+    <pagination current-page="currentPage" total-pages="pages" prev-page-fn="prevPage" next-page-fn="nextPage"></pagination>
   </div>
 </div>
