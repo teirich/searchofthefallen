@@ -24,7 +24,7 @@
         </label>
       </div>
       <div class="small-6 columns">
-        <label>Select a Chapter (Optional):
+        <label>Select a Chapter:
           <select class="chapter-select" ng-model="selectedChapter" ng-disabled="!selectedNovel">
             <option value="" selected>All Chapters</option>
             <option ng-repeat="book in bookDropdown" ng-value="book.value" ng-disabled="book.disabled">{{book.title}}</option>

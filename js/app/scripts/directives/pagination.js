@@ -12,7 +12,7 @@ function PaginationController() {
 }
 
 angular.module('search-of-the-fallen').component('pagination', {
-  templateUrl: 'scripts/directives/pagination.html',
+  templateUrl: 'views/pagination.html',
   controller: PaginationController,
   controllerAs: 'pg',
   bindings: {
