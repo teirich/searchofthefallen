@@ -13,6 +13,10 @@ angular.module('search-of-the-fallen')
     $scope.pages = 0;
     $scope.currentPage = 1;
 
+    $scope.validForm = function () {
+      return $scope.text && $scope.selectedNovel;
+    };
+
     $scope.getStructure = function () {
       $http.get('/api/info/novelStructure')
         .then(function(success){

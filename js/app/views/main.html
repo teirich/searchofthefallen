@@ -7,7 +7,7 @@
     <div class="search-bar input-group">
         <input class="input-group-field" type="text" ng-model="text" placeholder="Search"/>
         <div class="input-group-button">
-          <button id="go" class="button" ng-click="newSearch()"><i class="fa fa-search"></i></button>
+          <button ng-disabled="!validForm()" id="go" class="button" ng-click="newSearch()"><i class="fa fa-search"></i></button>
         </div>
     </div>
     <div class="row">
