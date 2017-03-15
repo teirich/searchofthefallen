@@ -74,10 +74,13 @@ public class SolrService {
         SolrQuery query = commonQuery(searchText, rows, start);
 
         StringBuilder sb = new StringBuilder();
+
+        if(novel > 1) {
+            sb.append("(novel:");
+            sb.append(oneToString(novel - 1));
+            sb.append(" AND chapter:[0 TO *] AND book:[0 TO *]) OR ");
+        }
         sb.append("(novel:");
-        sb.append(oneToString(novel));
-        sb.append(" AND chapter:[0 TO *] AND book:[0 TO *])");
-        sb.append(" OR (novel:");
         sb.append(novel);
         sb.append(" AND chapter:");
 
