@@ -108,14 +108,23 @@ public class Parser {
             case "Chapter Eighteen": return 18;
             case "Chapter Nineteen": return 19;
             case "Chapter Twenty": return 20;
+            case "Chapter Twenty-one":
             case "Chapter Twenty-One": return 21;
+            case "Chapter Twenty-two":
             case "Chapter Twenty-Two": return 22;
+            case "Chapter Twenty-three":
             case "Chapter Twenty-Three": return 23;
+            case "Chapter Twenty-four":
             case "Chapter Twenty-Four": return 24;
+            case "Chapter Twenty-five":
             case "Chapter Twenty-Five": return 25;
+            case "Chapter Twenty-six":
             case "Chapter Twenty-Six": return 26;
+            case "Chapter Twenty-seven":
             case "Chapter Twenty-Seven": return 27;
+            case "Chapter Twenty-eight":
             case "Chapter Twenty-Eight": return 28;
+            case "Chapter Twenty-nine":
             case "Chapter Twenty-Nine": return 29;
             case "Chapter Thirty": return 30;
             default: return -1;

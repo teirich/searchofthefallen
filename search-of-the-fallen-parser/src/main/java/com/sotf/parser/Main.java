@@ -22,6 +22,20 @@ public class Main {
         return new BufferedReader(fileReader);
     }
 
+    /**
+     * Notes:
+     *  port forward to prod - ssh  -L 8983:localhost:8983 -i "search-of-the-fallen.pem" user@host
+     *  create solr core - http://localhost:8983/solr/admin/cores?action=CREATE&name=sotf
+     *  manually add fields in UI
+     *      - book (int)
+     *      - chapter (int)
+     *      - nextText (text_en)
+     *      - novel (int)
+     *      - prevText (text_en)
+     *      - sequence (int)
+     *      - text (text_en)
+     * @param args  Arg0 = source text file, Arg1 = Novel # (GOTM = 1), Optional Arg3 = solrAddress
+     */
     public static void main(String[] args) {
         if(args.length < 2) {
             System.out.println("Missing input param!");
