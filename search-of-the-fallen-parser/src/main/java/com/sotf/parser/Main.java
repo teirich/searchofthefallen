@@ -25,7 +25,7 @@ public class Main {
     /**
      * Notes:
      *  port forward to prod - ssh  -L 8983:localhost:8983 -i "search-of-the-fallen.pem" user@host
-     *  create solr core - http://localhost:8983/solr/admin/cores?action=CREATE&name=sotf
+     *  create solr core - /ebs/solr/bin/solr create -c sotf
      *  manually add fields in UI
      *      - book (int)
      *      - chapter (int)
@@ -34,6 +34,8 @@ public class Main {
      *      - prevText (text_en)
      *      - sequence (int)
      *      - text (text_en)
+     * run parser locally against forwarded point
+     * back up new collection in AWS
      * @param args  Arg0 = source text file, Arg1 = Novel # (GOTM = 1), Optional Arg3 = solrAddress
      */
     public static void main(String[] args) {
